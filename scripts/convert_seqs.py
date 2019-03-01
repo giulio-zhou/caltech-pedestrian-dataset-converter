@@ -7,9 +7,11 @@ import cv2 as cv
 
 
 def save_img(dname, fn, i, frame):
-    cv.imwrite('{}/{}_{}_{}.png'.format(
-        out_dir, os.path.basename(dname),
-        os.path.basename(fn).split('.')[0], i), frame)
+    subdir = '{}/{}_{}'.format(
+        out_dir, os.path.basename(dname), os.path.basename(fn).split('.')[0])
+    if not os.path.exists(subdir):
+        os.mkdir(subdir)
+    cv.imwrite('{}/{:05d}.png'.format(subdir, i), frame)
 
 out_dir = 'data/images'
 if not os.path.exists(out_dir):
